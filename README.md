@@ -34,9 +34,19 @@ Quarterly Plan - https://github.com/skearn64/cicd_project2/edit/main/Q1_2021_CIC
 Yearly Plan - https://github.com/skearn64/cicd_project2/edit/main/Y1_2021_CICD_Pipeline.xlsx
 
 ## Instructions
-
-<TODO:  
+  
 * Architectural Diagram (Shows how key parts of the system work)>
+The first diagram shows the logical architecture between the GitHub repository created and its link with the Azure Cloud Shell.
+The initil files are upload to the GitHub repo and then through the git clone command the repository is cloned to the Azure Cloud Shell
+Further git commands allow new/updated files to be added to the GitHub repo (git add, git commit and git push) along with the ability to pull files (git pull)
+added to the GitHub repo from external sources and which may not have been initially cloned to the Azure Cloud Shell
+The Azure Cloud Shell is where the Python virtual environment is created allowing the user to install python components using pip, as well as running pylint and 
+pytest as part of the Make process, that is installed from the use of the requirements.txt file.
+The requirements.txt details specific versions of the components to be used when running the make process.  
+
+https://github.com/skearn64/cicd_project2/edit/main/GitHub_Azure_Cloud.docx
+
+
 
 <TODO:  Instructions for running the Python project.  How could a user with no context run this project without asking you for any help.  Include screenshots with explicit steps to create that work. Be sure to at least include the following screenshots:
 
