@@ -35,7 +35,6 @@ Yearly Plan - https://github.com/skearn64/cicd_project2/edit/main/Y1_2021_CICD_P
 
 ## Instructions
   
-* Architectural Diagram (Shows how key parts of the system work)>
 The first diagram shows the logical architecture between the GitHub repository created and its link with the Azure Cloud Shell.
 The initil files are upload to the GitHub repo and then through the git clone command the repository is cloned to the Azure Cloud Shell
 Further git commands allow new/updated files to be added to the GitHub repo (git add, git commit and git push) along with the ability to pull files (git pull)
@@ -55,6 +54,13 @@ The build starts and works it's way through each step, only stopping if an error
 A successful build signifies that the Project can continue to the Continuous Delivery stage; that of implementing Azure Pipelines  
 
 https://github.com/skearn64/cicd_project2/edit/main/GitHub_Actions_Azure_Cloud.docx
+
+The final architectural diagram below completes the full CI/CD process, using Azure Pipelines and Azure App Service to deploy the Flask Machine Learning API.
+A change to a file in the Azure Cloud Shell triggers the Azure Pipeline already associated with with the GitHub repo created at the start of this Project.
+This carries out the build process ending in the successful deployment as an Azure App Service.
+
+https://github.com/skearn64/cicd_project2/edit/main/GitHub_Azure_Pipeline_CD.docx
+
 
 
 <TODO:  Instructions for running the Python project.  How could a user with no context run this project without asking you for any help.  Include screenshots with explicit steps to create that work. Be sure to at least include the following screenshots:
