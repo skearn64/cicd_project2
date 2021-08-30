@@ -30,6 +30,7 @@ https://trello.com/b/sMm2HPxI/cicdproject2
 The Excel Spreadsheets created for the Quarterly and Yearly plan can be found in the GitHub repo as follows;
 
 Quarterly Plan - https://github.com/skearn64/cicd_project2/edit/main/Q1_2021_CICD_Pipeline.xlsx
+
 Yearly Plan - https://github.com/skearn64/cicd_project2/edit/main/Y1_2021_CICD_Pipeline.xlsx
 
 ## Instructions
