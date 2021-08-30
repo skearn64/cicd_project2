@@ -47,6 +47,15 @@ The requirements.txt details specific versions of the components to be used when
 https://github.com/skearn64/cicd_project2/edit/main/GitHub_Azure_Cloud.docx
 
 
+This second diagram provide the logical process followed when GitHub Actions has been implemented to complete the continuous integration stage of the Building  
+a CI/CD Pipeline.
+It shows a simple example where a change is made to the file hello.py. This change is committed to GitHub using the git add, git commit and git push commands.
+The change to the GitHub repo triggers the GitHub Action previously created. This carries out the steps of install, pylint and pytest added to the .yml file.
+The build starts and works it's way through each step, only stopping if an error occurs.
+A successful build signifies that the Project can continue to the Continuous Delivery stage; that of implementing Azure Pipelines  
+
+https://github.com/skearn64/cicd_project2/edit/main/GitHub_Actions_Azure_Cloud.docx
+
 
 <TODO:  Instructions for running the Python project.  How could a user with no context run this project without asking you for any help.  Include screenshots with explicit steps to create that work. Be sure to at least include the following screenshots:
 
