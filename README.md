@@ -33,7 +33,7 @@ Quarterly Plan - https://github.com/skearn64/cicd_project2/edit/main/Q1_2021_CIC
 
 Yearly Plan - https://github.com/skearn64/cicd_project2/edit/main/Y1_2021_CICD_Pipeline.xlsx
 
-## Instructions
+## Instructions - Architectural Diagrams
   
 The first diagram shows the logical architecture between the GitHub repository created and its link with the Azure Cloud Shell.
 The initil files are upload to the GitHub repo and then through the git clone command the repository is cloned to the Azure Cloud Shell
@@ -63,15 +63,68 @@ https://github.com/skearn64/cicd_project2/edit/main/GitHub_Azure_Pipeline_CD.doc
 
 
 
+## Instructions - Running the Python project
 <TODO:  Instructions for running the Python project.  How could a user with no context run this project without asking you for any help.  Include screenshots with explicit steps to create that work. Be sure to at least include the following screenshots:
 
-* Project running on Azure App Service
+Assumptions
+That the user has knowledge of GitHub.
+That the user has access to the GitHub repo cicd_project2 and an Azure account is already set-up.
+That the user has signed into GitHub and Azure (Portal and DevOps)
+The the user has already generated the SSH key required for the GitHub repo cicd_project2 with a suitable name.
+That the GitHub Actions has already been created and that 
+
+The first step will be to clone the GitHub repo known as cicd_project2. This contains the code required to run through the steps outlined in the Project known as Building a CI/CD Pipeline.
 
 * Project cloned into Azure Cloud Shell
+1. In GitHub go to the repo created and ensure the code option is selected.
+2. Click on the green Code button and under the Clone section ensure SSH is underlined. Copy the URL. This will confirm that it has been copied.
+3. Open up an Azure Cloud Shell terminal from the Azure Portal and expand this.
+4. At the command prompt type the command git clone and past in the gitHub URL copied in step 2 and enter yes to continue.
+5. Confirm that the clone has been successful by changing directory to the repo name created, i.e. cd cicd_project2. The output will resemble that shown in the screenshot  
+
+![git clone](https://github.com/skearn64/cicd_project2/edit/main/git clone to azure.png)
+
 
 * Passing tests that are displayed after running the `make all` command from the `Makefile`
+Once the GitHub repo has been cloned and the phyton virtual environment created and activated there is a need to ensure that the install, lint and test calls in the Makefile run and complete successfully.
+
+
+******Before creating the app service and deploying the app via the Azure Cloud Shell
+
+
+* Project running on Azure App Service
+Before completing the final stage of the Continuous Delivery process there is a need to first set-up the Azure App Service before integrating it with Azure Pipelines. The creation of the Azure App Service follows an install, deploy and test/check process.
+
+
+1. The first of these; the install phase, starts with running the `make install` command. This installs the components required to run the Flask ML app.  
+
+From the Azure Cloud Shell prompt run the `make install` command. 
+This will run through the Makefile and produce the output shown in the screenshot below, showing successful completion;
+
+![make install output](https://github.com/skearn64/cicd_project2/edit/main/make install output.png)
+
+
+2. Upon completion of the above step the app service can then be initially deployed to the Cloud Shell
+From the Azure Cloud Shell run the command
+  az webapp up -n flask-ml-app-proj2
+  
+This will step through the deployment of the app service and complete as shown in the next screenshot;
+
+![deploy webapp az webapp up](https://github.com/skearn64/cicd_project2/edit/main/deploy webapp az webapp up.png)
+
+
+3. In the screenshot you can see the URL ( http://flask-ml-app-proj2.azurewebsites.net ) to be used to test the initial deployment. Entering this into a browser produces the following;
+
+![sklearn prediction change](https://github.com/skearn64/cicd_project2/edit/main/Sklearn Prediction change.png)
 
 * Output of a test run
+The final part of creating the Azure App Service is to check that the prediction actually works. The file make_predict_azure_app.sh has already been adapted to call the Azure App Service deployed. To run this enter the command ./make_predict_azure_app.sh
+Note this may return with a permission denied error. This is easily resolved by ensuring that the execute permission is applied to the file.
+Upon running the file it should display the following;
+
+![make predict azure app](https://github.com/skearn64/cicd_project2/edit/main/make_predict_azure_app.png)
+
+
 
 * Successful deploy of the project in Azure Pipelines.  [Note the official documentation should be referred to and double checked as you setup CI/CD](https://docs.microsoft.com/en-us/azure/devops/pipelines/ecosystems/python-webapp?view=azure-devops).
 
