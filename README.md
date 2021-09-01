@@ -66,27 +66,64 @@ https://github.com/skearn64/cicd_project2/edit/main/GitHub_Azure_Pipeline_CD.doc
 ## Instructions - Running the Python project
 <TODO:  Instructions for running the Python project.  How could a user with no context run this project without asking you for any help.  Include screenshots with explicit steps to create that work. Be sure to at least include the following screenshots:
 
-Assumptions
+# Assumptions:
 That the user has knowledge of GitHub.
 That the user has access to the GitHub repo cicd_project2 and an Azure account is already set-up.
 That the user has signed into GitHub and Azure (Portal and DevOps)
-The the user has already generated the SSH key required for the GitHub repo cicd_project2 with a suitable name.
-That the GitHub Actions has already been created and that 
+That the SSH keys required to allow the clone of the GitHub repo cicd_project2 have been created with a suitable name.
+That the GitHub Actions has already been created within the cicd_project2 to carry out Continuous integration.
+That the Azure Pipelines have been created to provide the Continuous Delivery stage.
 
-The first step will be to clone the GitHub repo known as cicd_project2. This contains the code required to run through the steps outlined in the Project known as Building a CI/CD Pipeline.
+* Clone the GitHub repo to Azure Cloud
+The first task the user needs to carry out is to clone the GitHub repo known as cicd_project2. This contains the code required to run through the steps outlined in the Project known as Building a CI/CD Pipeline. The steps to follow are detailed below;
 
-* Project cloned into Azure Cloud Shell
 1. In GitHub go to the repo created and ensure the code option is selected.
 2. Click on the green Code button and under the Clone section ensure SSH is underlined. Copy the URL. This will confirm that it has been copied.
 3. Open up an Azure Cloud Shell terminal from the Azure Portal and expand this.
 4. At the command prompt type the command git clone and past in the gitHub URL copied in step 2 and enter yes to continue.
 5. Confirm that the clone has been successful by changing directory to the repo name created, i.e. cd cicd_project2. The output will resemble that shown in the screenshot  
 
-![git clone](https://github.com/skearn64/cicd_project2/edit/main/git clone to azure.png)
+![Git clone](https://github.com/skearn64/cicd_project2/edit/main/git_clone_to_azure.png)
+
+And the files in the directory will look similar to the following;
+
+![File listing](https://github.com/skearn64/cicd_project2/edit/main/listing_of_cicd_project2_files.png)
 
 
-* Passing tests that are displayed after running the `make all` command from the `Makefile`
-Once the GitHub repo has been cloned and the phyton virtual environment created and activated there is a need to ensure that the install, lint and test calls in the Makefile run and complete successfully.
+# Basic test of Python Code
+It should now be easy to check the virtual python environment created and test that the scaffolding code performs a simple install, lint and test successfully. To do this though we need to make a few filename changes.
+
+The cicd_project2 directory contains two Makefiles and two requirements.txt files. To test that your code initially works these need to be changed.
+From the Azure Cloud Shell rename the following files;
+* Makefile to Makefile_new
+* Makefile_orig to Makefile
+* requirements.txt to requirements_new.txt
+* requirements_orig.txt to requirements.txt
+
+The Makefile now contains a basic pip install. It will run pylint and pytest calling in the python code contained in the files hello.py and test_hello.py.
+The requirements.txt contains the calls to the pylint and pytest packages
+
+Now the Makefile and requirements.txt are correct we need to create the Python virtual environment from in the Azure Cloud Shell using the following commands;
+python3 -m venv ~/.cicd_project2
+source ~/.cicd_project2/bin/activate
+
+The should resemble the following;
+
+![python virtual env setup](https://github.com/skearn64/cicd_project2/edit/main/python_virtual_env_setup.png)
+
+With the virtual environment created we need to run the `make all` command
+Running this returns the output displayed in the make all screenshot found below.
+
+![make all success](https://github.com/skearn64/cicd_project2/edit/main/hello_py_pylint_pytest.png)
+
+
+
+*****GitHub Actons next
+
+In this project we're going to use GitHub Actions to provide the continuous integration of the machine learning application.
+Simply put we want the ability to automatically build and test the code whenever we change and upload a file to the GitHub repo.
+We know the `make all` previously ran was successful, so now instead of us having to manually run this everytime we'll get GitHub Acctions to do it for us.
+
 
 
 ******Before creating the app service and deploying the app via the Azure Cloud Shell
@@ -101,7 +138,7 @@ Before completing the final stage of the Continuous Delivery process there is a 
 From the Azure Cloud Shell prompt run the `make install` command. 
 This will run through the Makefile and produce the output shown in the screenshot below, showing successful completion;
 
-![make install output](https://github.com/skearn64/cicd_project2/edit/main/make install output.png)
+![Make install output](https://github.com/skearn64/cicd_project2/edit/main/make_install_output.png)
 
 
 2. Upon completion of the above step the app service can then be initially deployed to the Cloud Shell
@@ -110,19 +147,19 @@ From the Azure Cloud Shell run the command
   
 This will step through the deployment of the app service and complete as shown in the next screenshot;
 
-![deploy webapp az webapp up](https://github.com/skearn64/cicd_project2/edit/main/deploy webapp az webapp up.png)
+![Deploy az webapp up](https://github.com/skearn64/cicd_project2/edit/main/deploy_webapp_az_webapp_up.png)
 
 
 3. In the screenshot you can see the URL ( http://flask-ml-app-proj2.azurewebsites.net ) to be used to test the initial deployment. Entering this into a browser produces the following;
 
-![sklearn prediction change](https://github.com/skearn64/cicd_project2/edit/main/Sklearn Prediction change.png)
+![SKlearn Prediction Home Page](https://github.com/skearn64/cicd_project2/edit/main/Sklearn_Prediction_change.png)
 
 * Output of a test run
 The final part of creating the Azure App Service is to check that the prediction actually works. The file make_predict_azure_app.sh has already been adapted to call the Azure App Service deployed. To run this enter the command ./make_predict_azure_app.sh
 Note this may return with a permission denied error. This is easily resolved by ensuring that the execute permission is applied to the file.
 Upon running the file it should display the following;
 
-![make predict azure app](https://github.com/skearn64/cicd_project2/edit/main/make_predict_azure_app.png)
+![Make prediction with azure app](https://github.com/skearn64/cicd_project2/edit/main/make_predict_azure_app.png)
 
 
 
@@ -140,12 +177,26 @@ Port: 443
 ```
 
 * Output of streamed log files from deployed application
+The final stage of running through this project is to check that the deployment of the app completed successfuly.
+This can be achieved in two ways.
+1. Through streaming the az webapp log using the tail command 
+2. Inspecting the running application through a URL call to its specific logs
+
+Add in images of webapp tail and URL link to logs
+
 
 > 
 
 ## Enhancements
 
 <TODO: A short description of how to improve the project in the future>
+Introduce the use of a config file for housing predictions from other areas
+Allow other factors such as changing number of rooms, family size etc... to be changed through WebGUI
+Enhance the WebGUI to display the data in different formats and allow field changes and validation
+Develop as a Mobile App that uses your location to provide housing predictions
+Provide links to local estate agents/realtors to search for ideal houses
+
+
 
 ## Demo 
 
