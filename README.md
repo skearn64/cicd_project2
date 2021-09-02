@@ -17,7 +17,7 @@ The initial scaffolding code, the use of a Make file and requirements.txt, and t
 Once complete the attention is turned to the creation and configuration of Azure Pipelines to allow continuous delivery of the machine learning application as an Azure App Service.
 
 
-## Project Plan
+# Project Plan
 Project Plan
 This section of the Readme.md file contains the Project Plans for the first quarter and the first year based on the CI/CD Project. For the yearly plan this has
 been broken up into 4 quarters with enhancements included that enable the ML Flask App to be developed further as well as potentially becoming the start of a
@@ -33,7 +33,7 @@ Quarterly Plan - https://github.com/skearn64/cicd_project2/edit/main/Q1_2021_CIC
 
 Yearly Plan - https://github.com/skearn64/cicd_project2/edit/main/Y1_2021_CICD_Pipeline.xlsx
 
-## Instructions - Architectural Diagrams
+# Instructions - Architectural Diagrams
   
 The first diagram shows the logical architecture between the GitHub repository created and its link with the Azure Cloud Shell.
 The initil files are upload to the GitHub repo and then through the git clone command the repository is cloned to the Azure Cloud Shell
@@ -63,10 +63,10 @@ https://github.com/skearn64/cicd_project2/edit/main/GitHub_Azure_Pipeline_CD.doc
 
 
 
-## Instructions - Running the Python project
+# Instructions - Running the Python project
 <TODO:  Instructions for running the Python project.  How could a user with no context run this project without asking you for any help.  Include screenshots with explicit steps to create that work. Be sure to at least include the following screenshots:
 
-# Assumptions:
+## Assumptions:
 That the user has knowledge of GitHub.
 That the user has access to the GitHub repo cicd_project2 and an Azure account is already set-up.
 That the user has signed into GitHub and Azure (Portal and DevOps)
@@ -118,11 +118,25 @@ Running this returns the output displayed in the make all screenshot found below
 
 
 
-*****GitHub Actons next
+## Using GitHub Actons for CI
 
-In this project we're going to use GitHub Actions to provide the continuous integration of the machine learning application.
+In this project we used GitHub Actions to provide the continuous integration of the machine learning application.
 Simply put we want the ability to automatically build and test the code whenever we change and upload a file to the GitHub repo.
 We know the `make all` previously ran was successful, so now instead of us having to manually run this everytime we'll get GitHub Acctions to do it for us.
+
+From the GitHub repo clicking on the Actions option will enable GitHub Actions to be created. For this project we just selected the `set up a workflow yourself' and this created the file pythonapp.yml with some generic scaffolding code present.
+
+The generic code was replaced with the specific scaffolding code that sets up the right version of Python, then remotely carries out the install, lint and test 
+Changing the file and pushing it to GitHub triggers the GitHub Actions to run and therefore completes the Continuous Integration. This can easily be checked by making a simple change to the pythonapp.yml code and saving this.
+Once done selecting the Actions option in the cicd_project2 repo will display the build in progress as shown below;
+
+![GitHub Actions Build process](http://github.com/skearn64/cicd_project2/edit/main/github_actions_buld_process.png)
+
+And once the build is complete we can see verify this by checking that each step completed successful and produces an output similar to the image below;
+
+![GitHub Actions Passing Tests](http://github.com/skearn64/cicd_project2/edit/main/github_actions_showing_CI_passing_tests.png)
+
+
 
 
 
