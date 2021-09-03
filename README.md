@@ -17,8 +17,9 @@ The initial scaffolding code, the use of a Make file and requirements.txt, and t
 Once complete the attention is turned to the creation and configuration of Azure Pipelines to allow continuous delivery of the machine learning application as an Azure App Service.
 
 
+
 # Project Plan
-Project Plan
+
 This section of the Readme.md file contains the Project Plans for the first quarter and the first year based on the CI/CD Project. For the yearly plan this has
 been broken up into 4 quarters with enhancements included that enable the ML Flask App to be developed further as well as potentially becoming the start of a
 Product that could see it used elsewhere in other areas of industry. 
@@ -67,6 +68,7 @@ https://github.com/skearn64/cicd_project2/edit/main/GitHub_Azure_Pipeline_CD.doc
 <TODO:  Instructions for running the Python project.  How could a user with no context run this project without asking you for any help.  Include screenshots with explicit steps to create that work. Be sure to at least include the following screenshots:
 
 ## Assumptions:
+
 That the user has knowledge of GitHub.
 That the user has access to the GitHub repo cicd_project2 and an Azure account is already set-up.
 That the user has signed into GitHub and Azure (Portal and DevOps)
@@ -90,7 +92,9 @@ And the files in the directory will look similar to the following;
 ![File listing](https://github.com/skearn64/cicd_project2/edit/main/listing_of_cicd_project2_files.png)
 
 
-# Basic test of Python Code
+
+## Basic test of Python Code
+
 It should now be easy to check the virtual python environment created and test that the scaffolding code performs a simple install, lint and test successfully. To do this though we need to make a few filename changes.
 
 The cicd_project2 directory contains two Makefiles and two requirements.txt files. To test that your code initially works these need to be changed.
@@ -137,14 +141,17 @@ And once the build is complete we can see verify this by checking that each step
 ![GitHub Actions Passing Tests](https://github.com/skearn64/cicd_project2/edit/main/github_actions_showing_CI_passing_tests.png)
 
 
-# Continuous Delivery using Azure Pipelines
+## Continuous Integration/Continuous Delivery using Azure Pipelines
+
+We're now at the stage when we can start to create our CI/CD Azure Pipeline.
+Each of the stages noted below can be followed using the official Microsoft Azure documentation referenced in the link below;
+(https://docs.microsoft.com/en-us/azure/devops/pipelines/ecosystems/python-webapp?view=azure-devops)
+
+This documentation is specific in creating a CI/CD Azure Pipeline for the deployment of a Python Web App as a Azure App Service running on Linux. 
 
 
-******Before creating the app service and deploying the app via the Azure Cloud Shell
-
-
-## Project running as an Azure App Service
-Before completing the final stage of the Continuous Delivery process and integrating it with Azure Pipelines there is a need to set-up the Azure App Service.
+### Provisioning the initial Azure App Service
+Before completing the final stage of the Continuous Delivery process and integrating it with Azure Pipelines there is a need to provision the Azure App Service.
 The creation of the Azure App Service follows an install, deploy and test/check process.
 
 
@@ -179,8 +186,8 @@ Upon running the file it should display the following;
 
 
 
-## Creating the Azure Pipelines
-We're now onto the last stage of completing the Continuous Delivery using Azure Pipelines
+### Creating the Azure DevOps Project
+We're now onto the last stage of completing the Continuous Delivery using Azure Pipelines  
 For this we need to first create a project in Azure DevOps running through the steps below.
 1. Login to Azure DevOps if not already. This will display the home page
 ![Azure DevOps Home Page](https://github.com/skearn64/cicd_project2/edit/main/azure_devops_home_page.png)
@@ -189,6 +196,8 @@ For this we need to first create a project in Azure DevOps running through the s
 ![Azure DevOps Proj Details](https://github.com/skearn64/cicd_project2/edit/main/azure_devops_add_new_proj_details.png)
 
 
+
+### Creating the Azure connection
 Now the Project has been created a new service connection needs to be established between the Project and Azure. The steps below guide you through this stage.
 1. Select the Project and then go into the project settings which will resemble something similar to the image below;
 ![Project_Settings_and Service Connection](https://github.com/skearn64/cicd_project2/edit/main/azure_devops_new_service_connect.png)
@@ -206,6 +215,8 @@ Now the Project has been created a new service connection needs to be establishe
 ![Select RG and provide name](https://github.com/skearn64/cicd_project2/edit/main/azure_devops_service_conn_rg_name.png)
 
 
+
+### Creating the Azure Pipeline for deployment
 With both the Project and service connection created the last stage is to actually create the Azure Pipeline itself.
 Ensure the Project recently created is displayed and then select Pipelines from the left hand menu. Continue to create the Azure Pipeline as detailed below.
 1. If no Pipelines have been created (as in the case of a new project) then click on the `Create Pipeline` in the middle of the page displayed
@@ -228,10 +239,19 @@ If an Azure Pipeline already exists then click on the `+New Pipeline` in the top
 ![Web App Name and validate](https://github.com/skearn64/cicd_project2/edit/main/azure_pipeline_webapp_name_valid.png)
 Now that we have stepped through the creation of the Azure Pipeline we just need to validate and configure it by clicking on the button present.
 
+Azure Pipelines will now create an azure-pipelines.yml file. This details the stages that your created Azure Pipeline will follow in the CI/CD process.
+Viewing the YAML file displayed you'll notice that the creation of the Pipeline has pre-populated the webAppName and environmentName fields with the name of the Flask ML App you created when you provisioned the initial Azure App Service.
 
-* Successful deploy of the project in Azure Pipelines.  [Note the official documentation should be referred to and double checked as you setup CI/CD](https://docs.microsoft.com/en-us/azure/devops/pipelines/ecosystems/python-webapp?view=azure-devops).
 
-* Running Azure App Service from Azure Pipelines automatic deployment
+
+### Running Azure App Service from Azure Pipelines
+You're now ready to run the Azure Pipeline and check that the CI/CD automation works correctly.
+To do this we need to save the azure_pipelines.yml file by clicking on `Save and run` in the upper right hand corner of the editor.
+A pop-up window will appear with the Commit message field populated. Click on the `Save and run` in the bottom right. This will now commit the changes to the GitHub repo and display the Azure Pipeline job running.
+
+From the Summary we can see job queued 
+![Azure Pipeline Deploy Completed](https://github.com/skearn64/cicd_project2/edit/main/azure_pipeline_upload_files_deploy.png)
+
 
 * Successful prediction from deployed flask app in Azure Cloud Shell.  [Use this file as a template for the deployed prediction](https://github.com/udacity/nd082-Azure-Cloud-DevOps-Starter-Code/blob/master/C2-AgileDevelopmentwithAzure/project/starter_files/flask-sklearn/make_predict_azure_app.sh).
 The output should look similar to this:
@@ -252,7 +272,7 @@ Selecting the Deploy Azure WebApp will display the URL of the web app. Pasting t
 ![SKlearn Prediction Web Change](https://github.com/skearn64/cicd_project2/edit/main/Sklearn_prediction_code_change.png)
 
 
-# Streaming or Inspection of Log files
+## Streaming or Inspection of Log files
 The final stage of running through this project is to check that the deployment of the app completed successfuly.
 This can be achieved in two ways;
 
@@ -271,9 +291,8 @@ The logs produced from the running one of those prediction scripts above should 
 The outout of which will be similar to that shown below
 
 ![Logfile output from Flask ML API](https://github.com/skearn64/cicd_project2/edit/main/logfile_output_from_flask_ml_api_run.png
- 
 
-## Enhancements
+# Enhancements
 
 The Machine learning API using the pre-trained model predict housing prices in the Boston area.
 We can though add a number of changes to make this a much more powerful app. Some ideas are as follows;
@@ -284,10 +303,10 @@ We can though add a number of changes to make this a much more powerful app. Som
 * Develop as a Mobile App that uses your location to provide housing predictions
 * Provide links to local estate agents/realtors to search for ideal houses
 
-  These enhancements have already been included in the yearly project plan, along with a a few more. 
+These enhancements have already been included in the yearly project plan, along with a a few more. 
 
 
-## Demo 
+# Demo 
 
 <TODO: Add link Screencast on YouTube>
 
