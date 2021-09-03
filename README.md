@@ -77,8 +77,8 @@ The following assumptions have been made regarding the user running through the 
 * That the SSH keys required to allow the clone of the GitHub repo cicd_project2 have been created with a suitable name.
 * That the GitHub Actions has already been created within the cicd_project2 to carry out Continuous integration.
 * That the Azure Pipelines have been created to provide the Continuous Delivery stage.
-
 * Clone the GitHub repo to Azure Cloud
+
 The first task the user needs to carry out is to clone the GitHub repo known as cicd_project2. This contains the code required to run through the steps outlined in the Project known as Building a CI/CD Pipeline. The steps to follow are detailed below;
 
 1. In GitHub go to the repo created and ensure the code option is selected.
@@ -110,14 +110,14 @@ The Makefile now contains a basic pip install. It will run pylint and pytest cal
 The requirements.txt contains the calls to the pylint and pytest packages
 
 Now the Makefile and requirements.txt are correct we need to create the Python virtual environment from in the Azure Cloud Shell using the following commands;
-python3 -m venv ~/.cicd_project2
-source ~/.cicd_project2/bin/activate
+* python3 -m venv ~/.cicd_project2
+* source ~/.cicd_project2/bin/activate
 
 The should resemble the following;
 
 ![python virtual env setup](https://github.com/skearn64/cicd_project2/edit/main/python_virtual_env_setup.png)
 
-With the virtual environment created we need to run the `make all` command
+With the virtual environment created we need to run the `make all` command.
 Running this returns the output displayed in the make all screenshot found below.
 
 ![make all success](https://github.com/skearn64/cicd_project2/edit/main/hello_py_pylint_pytest.png)
@@ -136,11 +136,11 @@ The generic code was replaced with the specific scaffolding code that sets up th
 Changing the file and pushing it to GitHub triggers the GitHub Actions to run and therefore completes the Continuous Integration. This can easily be checked by making a simple change to the pythonapp.yml code and saving this.
 Once done selecting the Actions option in the cicd_project2 repo will display the build in progress as shown below;
 
-![GitHub Actions Build process](https://github.com/skearn64/cicd_project2/edit/main/github_actions_buld_process.png)
+![GitHub Actions Build process](https://github.com/skearn64/cicd_project2/edit/main/github_actions_build_process.png)
 
 And once the build is complete we can see verify this by checking that each step completed successful and produces an output similar to the image below;
 
-![GitHub Actions Passing Tests](https://github.com/skearn64/cicd_project2/edit/main/github_actions_showing_CI_passing_tests.png)
+![GitHub Actions Passing Tests](https://github.com/skearn64/cicd_project2/edit/main/github_actions_showing_CI_passing_tests .png)
 
 
 ## Continuous Integration/Continuous Delivery using Azure Pipelines
@@ -152,7 +152,7 @@ Each of the stages noted below can be followed using the official Microsoft Azur
 This documentation is specific in creating a CI/CD Azure Pipeline for the deployment of a Python Web App as a Azure App Service running on Linux. 
 
 
-### Provisioning the initial Azure App Service
+#### Provisioning the initial Azure App Service
 Before completing the final stage of the Continuous Delivery process and integrating it with Azure Pipelines there is a need to provision the Azure App Service.
 The creation of the Azure App Service follows an install, deploy and test/check process.
 
@@ -187,7 +187,7 @@ To run locally use the file make_prediction.sh. Enter the command `./make_predic
 
 
 
-### Creating the Azure DevOps Project
+#### Creating the Azure DevOps Project
 We're now onto the last stage of completing the Continuous Delivery using Azure Pipelines  
 For this we need to first create a project in Azure DevOps running through the steps below.
 1. Login to Azure DevOps if not already. This will display the home page
@@ -200,7 +200,7 @@ For this we need to first create a project in Azure DevOps running through the s
 
 
 
-### Creating the Azure connection
+#### Creating the Azure connection
 Now the Project has been created a new service connection needs to be established between the Project and Azure. The steps below guide you through this stage.
 1. Select the Project and then go into the project settings which will resemble something similar to the image below;
 
@@ -224,7 +224,7 @@ Now the Project has been created a new service connection needs to be establishe
 
 
 
-### Creating the Azure Pipeline for deployment
+#### Creating the Azure Pipeline for deployment
 With both the Project and service connection created the last stage is to actually create the Azure Pipeline itself.
 Ensure the Project recently created is displayed and then select Pipelines from the left hand menu. Continue to create the Azure Pipeline as detailed below.
 1. If no Pipelines have been created (as in the case of a new project) then click on the `Create Pipeline` in the middle of the page displayed
@@ -259,12 +259,13 @@ Viewing the YAML file displayed you'll notice that the creation of the Pipeline 
 
 
 
-### Running Azure App Service from Azure Pipelines
+#### Running Azure App Service from Azure Pipelines
 You're now ready to run the Azure Pipeline and check that the CI/CD automation works correctly.
 To do this we need to save the azure_pipelines.yml file by clicking on `Save and run` in the upper right hand corner of the editor.
 A pop-up window will appear with the Commit message field populated. Click on the `Save and run` in the bottom right. This will now commit the changes to the GitHub repo and display the Azure Pipeline job running.
 
 From the Summary we can see the job queued and clicking on   
+
 ![Azure Pipeline Deploy Completed](https://github.com/skearn64/cicd_project2/edit/main/azure_pipeline_upload_files_deploy.png)
 
 Once complete go back to the Summary page of the jobs run. From here you can see that the last job run (at the top of the list) was successful
@@ -280,10 +281,12 @@ Note: this may return with a permission denied error. This is easily resolved by
 
 
 
-### Checking Continuous Integration / Continuous Delivery Operation
+#### Checking Continuous Integration / Continuous Delivery Operation
 Now the Azure Pipelines has been created and performs automatic deployments we can check the full end to end Continuous Delivey process by making a change to a file, which will then cause a new build and deployment to proceed.
-From GitHub edit the file app.py and find the line html = ""<h3>Sklearn Prediction Home</h3>""
-Change this to now read html = ""<h3>Sklearn Prediction Home Service by Continuous Delivery</h3>"" and save the file.
+
+From GitHub edit the file app.py and find the line starting `html = "<h3>Sklearn Prediction Home</h3>"`
+Change this to now read `html = "<h3>Sklearn Prediction Home Service by Continuous Delivery</h3>"` and save the file.
+
 This will trigger the Azure Pipelines to perform the automated Continuous Delivery process. Viewing the status of the deployments (both past and present) can be seen by selecting the Azure Pipelines option under the Azure DevOps Project previously created. 
 A similar summary page is shown in the following image;
 
@@ -296,6 +299,7 @@ Selecting the job will show the stages of the CI/CD process, as seen in the exam
 
 Running through each step will end with a successful deployment. Clicking on the Deploy Web App stage will enable each of it's steps to be viewed.
 Clicking on the Deploy Azure WebApp will open the log. Taking the URL from the line `App Service Application URL` and pasting this into a browser will bring up the web app with the new change visible as demonstrated in the example.
+
 ![SKlearn Prediction Web Change](https://github.com/skearn64/cicd_project2/edit/main/Sklearn_prediction_code_change.png)
 
 
@@ -317,7 +321,7 @@ The logs produced from the running one of those prediction scripts above should 
 
 The outout of which will be similar to that shown below
 
-![Logfile output from Flask ML API](https://github.com/skearn64/cicd_project2/edit/main/logfile_output_from_flask_ml_api_run.png
+![Logfile output from Flask ML API](https://github.com/skearn64/cicd_project2/edit/main/logfile_output_from_flask_ml_api_run.png)
 
 # Enhancements
 
