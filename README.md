@@ -65,16 +65,18 @@ https://github.com/skearn64/cicd_project2/edit/main/GitHub_Azure_Pipeline_CD.doc
 
 
 # Instructions - Running the Python project
-<TODO:  Instructions for running the Python project.  How could a user with no context run this project without asking you for any help.  Include screenshots with explicit steps to create that work. Be sure to at least include the following screenshots:
+Instructions on how the Project is set-up and to run it at each stage are detailed below. Assumptions have been made and these are outlined first.
+Once the Azure Pipelines has been created the documentation does detail how the user can make a simple change to show that the full end to end CI/CD process works successfully.
 
 ## Assumptions:
 
-That the user has knowledge of GitHub.
-That the user has access to the GitHub repo cicd_project2 and an Azure account is already set-up.
-That the user has signed into GitHub and Azure (Portal and DevOps)
-That the SSH keys required to allow the clone of the GitHub repo cicd_project2 have been created with a suitable name.
-That the GitHub Actions has already been created within the cicd_project2 to carry out Continuous integration.
-That the Azure Pipelines have been created to provide the Continuous Delivery stage.
+The following assumptions have been made regarding the user running through the documentation.
+* That the user has knowledge of GitHub.
+* That the user has access to the GitHub repo cicd_project2 and an Azure account is already set-up.
+* That the user has signed into GitHub and Azure (Portal and DevOps)
+* That the SSH keys required to allow the clone of the GitHub repo cicd_project2 have been created with a suitable name.
+* That the GitHub Actions has already been created within the cicd_project2 to carry out Continuous integration.
+* That the Azure Pipelines have been created to provide the Continuous Delivery stage.
 
 * Clone the GitHub repo to Azure Cloud
 The first task the user needs to carry out is to clone the GitHub repo known as cicd_project2. This contains the code required to run through the steps outlined in the Project known as Building a CI/CD Pipeline. The steps to follow are detailed below;
@@ -176,13 +178,12 @@ In the screenshot you can see the URL ( http://flask-ml-app-proj2.azurewebsites.
 
 ![SKlearn Prediction Home Page](https://github.com/skearn64/cicd_project2/edit/main/Sklearn_Prediction_change.png)
 
-We can then see that the deployment worked as required. Later on we will make a change and use Azure Pipelines to show that the Continuous Delivery works.
+We can then see that the deployment worked as required. Later on we will make a change and use Azure Pipelines to show that the automated Continuous Integration / Continuous Delivery works.
 
-3. The final part of creating the Azure App Service is to check that the prediction actually works. The file make_predict_azure_app.sh has already been adapted to call the Azure App Service deployed. To run this enter the command ./make_predict_azure_app.sh
-Note this may return with a permission denied error. This is easily resolved by ensuring that the execute permission is applied to the file.
-Upon running the file it should display the following;
+3. The final part of creating the Azure App Service is to check that the prediction actually works. This can be tested locally; later on we'll run it using the Azure App 
+To run locally use the file make_prediction.sh. Enter the command `./make_prediction.sh` and the outout will look similar to the following;
 
-![Make prediction with azure app](https://github.com/skearn64/cicd_project2/edit/main/make_predict_azure_app.png)
+![Run local make prediction](https://github.com/skearn64/cicd_project2/edit/main/make_prediction_run_local.png)
 
 
 
@@ -190,9 +191,11 @@ Upon running the file it should display the following;
 We're now onto the last stage of completing the Continuous Delivery using Azure Pipelines  
 For this we need to first create a project in Azure DevOps running through the steps below.
 1. Login to Azure DevOps if not already. This will display the home page
+
 ![Azure DevOps Home Page](https://github.com/skearn64/cicd_project2/edit/main/azure_devops_home_page.png)
 
 2. Click on the `+New Project` in the top right hand corner and at the new screen enter the Project name, description and select Public as detailed below
+
 ![Azure DevOps Proj Details](https://github.com/skearn64/cicd_project2/edit/main/azure_devops_add_new_proj_details.png)
 
 
@@ -200,18 +203,23 @@ For this we need to first create a project in Azure DevOps running through the s
 ### Creating the Azure connection
 Now the Project has been created a new service connection needs to be established between the Project and Azure. The steps below guide you through this stage.
 1. Select the Project and then go into the project settings which will resemble something similar to the image below;
+
 ![Project_Settings_and Service Connection](https://github.com/skearn64/cicd_project2/edit/main/azure_devops_new_service_connect.png)
 
 2. Select the Service Connections option at the bottom of the project settings menu, and then at the next stage select Azure Resource Manager and click Next
+
 ![Select Azure Resource Manager](https://github.com/skearn64/cicd_project2/edit/main/azure_devops_service_conn_arm.png)
 
 3. At the following screen select the Service Principal (automatic) if it's not already checked and click Next
+
 ![Select Service Principal](https://github.com/skearn64/cicd_project2/edit/main/azure_devops_service_conn_auto.png)
 
 4. In the `New Azure Service Connection` window ensure Subscription is highlighted and then select the subscription from the drop down menu. Clicking on the Resource group drop down will prompt you to login to Microsoft and to confirm your credentials. Upon success this will populate the resource group drop down list
+
 ![Select Subscription](https://github.com/skearn64/cicd_project2/edit/main/azure_devops_new_service_sub.png)
 
-5. From the drop down select the resource group to use and then provide a name for the service connection and click on Save as showb below;
+5. From the drop down select the resource group to use and then provide a name for the service connection and click on Save as shown below;
+
 ![Select RG and provide name](https://github.com/skearn64/cicd_project2/edit/main/azure_devops_service_conn_rg_name.png)
 
 
@@ -221,22 +229,29 @@ With both the Project and service connection created the last stage is to actual
 Ensure the Project recently created is displayed and then select Pipelines from the left hand menu. Continue to create the Azure Pipeline as detailed below.
 1. If no Pipelines have been created (as in the case of a new project) then click on the `Create Pipeline` in the middle of the page displayed
 If an Azure Pipeline already exists then click on the `+New Pipeline` in the top right hand corner as show in the image below;
+
 ![New Pipeline](https://github.com/skearn64/cicd_project2/edit/main/azure_pipeline_create_new.png)
 
 2. You now need to select where your code is hosted. This offers a number of options but for this we are using GitHub, so select this.
+
 ![Where is the code hosted](https://github.com/skearn64/cicd_project2/edit/main/azure_pipeline_where_is_code.png)
 
 3. Next we need to configure the Azure Pipeline to use our GitHub repo where the files to be used are stored. From the list displayed select the repo previously used. In this case it will be cicd_project2.
+
 ![Select GitHub repo](https://github.com/skearn64/cicd_project2/edit/main/azure_pipeline_select_repo.png)
 
 4. This next stage requires the type of Pipeline to be selected. As this is a Python Web App running on Linux we'll select the `Python to Linux Web App on Azure`
+
 ![Select Python Web App Pipeline](https://github.com/skearn64/cicd_project2/edit/main/azure_pipeline_python_to_linux.png)
 
 5. We now need to confirm the Azure subscription to use. In this instance there is only one as show in the image below, so click on Continue;
+
 ![Subscription to use](https://github.com/skearn64/cicd_project2/edit/main/azure_pipeline_select_sub_to_use.png)
 
 6. The final step to create the Azure Pipeline is to provide the Web App name. This should be the same name given to the Azure App Service previously created.
+
 ![Web App Name and validate](https://github.com/skearn64/cicd_project2/edit/main/azure_pipeline_webapp_name_valid.png)
+
 Now that we have stepped through the creation of the Azure Pipeline we just need to validate and configure it by clicking on the button present.
 
 Azure Pipelines will now create an azure-pipelines.yml file. This details the stages that your created Azure Pipeline will follow in the CI/CD process.
@@ -249,26 +264,38 @@ You're now ready to run the Azure Pipeline and check that the CI/CD automation w
 To do this we need to save the azure_pipelines.yml file by clicking on `Save and run` in the upper right hand corner of the editor.
 A pop-up window will appear with the Commit message field populated. Click on the `Save and run` in the bottom right. This will now commit the changes to the GitHub repo and display the Azure Pipeline job running.
 
-From the Summary we can see job queued 
+From the Summary we can see the job queued and clicking on   
 ![Azure Pipeline Deploy Completed](https://github.com/skearn64/cicd_project2/edit/main/azure_pipeline_upload_files_deploy.png)
 
+Once complete go back to the Summary page of the jobs run. From here you can see that the last job run (at the top of the list) was successful
 
-* Successful prediction from deployed flask app in Azure Cloud Shell.  [Use this file as a template for the deployed prediction](https://github.com/udacity/nd082-Azure-Cloud-DevOps-Starter-Code/blob/master/C2-AgileDevelopmentwithAzure/project/starter_files/flask-sklearn/make_predict_azure_app.sh).
-The output should look similar to this:
+![Summary Page of Jobs run](https://github.com/skearn64/cicd_project2/edit/main/azure_pipeline_first_run.png)
 
-```bash
-udacity@Azure:~$ ./make_predict_azure_app.sh
-Port: 443
-{"prediction":[20.35373177134412]}
-```
+The final check to ensure Azure Pipelines has deployed the Flask App is to verify the prediction by using the file `make_predict_azure_app.sh`
+Running this from the Azure Cloud Shell will display the following outout;
 
+![Make Prediction via Azure App](https://github.com/skearn64/cicd_project2/edit/main/make_predict_azure_app.png)
+
+Note: this may return with a permission denied error. This is easily resolved by ensuring that the execute permission is applied to the file.
+
+
+
+### Checking Continuous Integration / Continuous Delivery Operation
 Now the Azure Pipelines has been created and performs automatic deployments we can check the full end to end Continuous Delivey process by making a change to a file, which will then cause a new build and deployment to proceed.
-From GitHub edit the file app.py and find the line html = "<h3>Sklearn Prediction Home</h3>"
-Change this to now read html = "<h3>Sklearn Prediction Home Service by Continuous Delivery</h3>" and save the file.
-This will trigger the Azure Pipelines to perform the automated Continuous Delivery process. Viewing the status of the deployment can be seen by selecting the Azure Pipelines under the Azure DevOps Project previously created, and clicking on the latest release which should inform us that it was started 'Just now'.
+From GitHub edit the file app.py and find the line html = ""<h3>Sklearn Prediction Home</h3>""
+Change this to now read html = ""<h3>Sklearn Prediction Home Service by Continuous Delivery</h3>"" and save the file.
+This will trigger the Azure Pipelines to perform the automated Continuous Delivery process. Viewing the status of the deployments (both past and present) can be seen by selecting the Azure Pipelines option under the Azure DevOps Project previously created. 
+A similar summary page is shown in the following image;
 
-This will run through step by step completing with a successful deployment. Clicking on the Deploy Web App will enable each of the steps to be viewed.
-Selecting the Deploy Azure WebApp will display the URL of the web app. Pasting this into a browser will bring up the web app with the new change visible
+![Azure Pipeline Job Queued](https://github.com/skearn64/cicd_project2/edit/main/azure_pipeline_run_after_change.png)
+
+The job at the top of the list shows a blue circle indicating that the pipeline job is queued and the status of `Just now` can be seen on the right hand side.
+Selecting the job will show the stages of the CI/CD process, as seen in the example below;
+
+![Azure Deploy Complete](https://github.com/skearn64/cicd_project2/edit/main/azure_pipeline_deploy_webapp_after_update.png)
+
+Running through each step will end with a successful deployment. Clicking on the Deploy Web App stage will enable each of it's steps to be viewed.
+Clicking on the Deploy Azure WebApp will open the log. Taking the URL from the line `App Service Application URL` and pasting this into a browser will bring up the web app with the new change visible as demonstrated in the example.
 ![SKlearn Prediction Web Change](https://github.com/skearn64/cicd_project2/edit/main/Sklearn_prediction_code_change.png)
 
 
@@ -279,7 +306,7 @@ This can be achieved in two ways;
 1. Through streaming the az webapp log using the tail command. This is achieved by opening up a separate window and running the command
 * az webapp log tail
 
-Then in another windows running the prediction script `./make_prediction.sh` locally or `make_predict_azure_app.sh` 
+Then in another windows running the prediction script `./make_prediction.sh` locally or `./make_predict_azure_app.sh` 
 
 The logs produced from the running one of those prediction scripts above should then be visible in the window streaming the log file and be similar to the image below;
 
