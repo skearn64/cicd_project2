@@ -142,6 +142,7 @@ And once the build is complete we can see verify this by checking that each step
 
 ![GitHub Actions Passing Tests](https://github.com/skearn64/cicd_project2/edit/main/github_actions_showing_CI_passing_tests.png)
 
+[![Actions Status](https://github.com/skearn64/cicd_project2/tree/main/.github/workflows/Python%20application%20test%20with%20Github%20Actions/badge.svg)](https://github.com/skearn64/cicd_project2/actions)
 
 ## Continuous Integration/Continuous Delivery using Azure Pipelines
 
