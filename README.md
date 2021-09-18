@@ -273,8 +273,12 @@ Once complete go back to the Summary page of the jobs run. From here you can see
 
 ![Summary Page of Jobs run](https://github.com/skearn64/cicd_project2/edit/main/azure_pipeline_first_run.png)
 
-The final check to ensure Azure Pipelines has deployed the Flask App is to verify the prediction by using the file `make_predict_azure_app.sh`
-Running this from the Azure Cloud Shell will display the following outout;
+The final checks to ensure Azure Pipelines has deployed the Flask App is to verify the project has been deployed into the Azure App Service and that a prediction is successful by using the file `make_predict_azure_app.sh`
+Viewing the App Services via the Azure Portal the following can be seen;
+
+![Project Deployed in Azure App Service](https://github.com/skearn64/cicd_project2/edit/main/azure_app_service_deployed_via_portal.png)
+
+Running the file `make_predict_azure_app.sh` from the Azure Cloud Shell will display the following outout;
 
 ![Make Prediction via Azure App](https://github.com/skearn64/cicd_project2/edit/main/make_predict_azure_app.png)
 
